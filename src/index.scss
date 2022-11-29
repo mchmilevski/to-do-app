@@ -1,0 +1,31 @@
+@font-face {
+  font-family: "JosefinSans-Regular";
+  src: url("./fonts/JosefinSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "JosefinSans-Bold";
+  src: url("./fonts/JosefinSans-Bold.ttf") format("truetype");
+}
+
+body {
+  margin: 0;
+  font-family: "JosefinSans-Regular", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: hsl(235, 21%, 11%);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+* {
+  box-sizing: border-box;
+}

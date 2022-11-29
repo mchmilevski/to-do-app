@@ -1,0 +1,35 @@
+.container {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  top: 90px;
+
+  .title {
+    color: white;
+    font-size: 50px;
+    font-family: "JosefinSans-Bold";
+    letter-spacing: 5px;
+  }
+
+  .input {
+    background-color: hsl(235, 24%, 19%);
+    border: none;
+    height: 60px;
+    width: 700px;
+    border-radius: 5px;
+    font-size: 18px;
+    color: hsl(234, 11%, 52%);
+    margin-top: 30px;
+    padding-left: 15px;
+    font-family: "JosefinSans-Regular";
+  }
+
+  ::placeholder {
+    color: hsl(234, 11%, 52%);
+    font-family: "JosefinSans-Regular";
+  }
+
+  input:focus {
+    outline: none;
+  }
+}

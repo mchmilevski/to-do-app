@@ -16,6 +16,20 @@
     cursor: pointer;
   }
 
+  .checked {
+    position: relative;
+    background: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%)); 
+  }
+
+  .checked::before {
+    content: "\2713";
+    font-size: 1em;
+    color: #fff;
+    position: absolute;
+    right: 4px;
+    top: 0px;
+  }
+
   .item-text {
     color: hsl(234, 11%, 52%);
     padding-left: 10px;
@@ -25,18 +39,4 @@
   .text-line-through {
     text-decoration: line-through;
   }
-}
-
-input:checked {
-  position: relative;
-  background: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
-}
-
-input:checked::before {
-  content: "\2713";
-  font-size: 1em;
-  color: #fff;
-  position: absolute;
-  right: 4px;
-  top: 0px;
 }

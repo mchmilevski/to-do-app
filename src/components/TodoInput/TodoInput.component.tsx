@@ -1,15 +1,31 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToList } from "../../store/todoSlice";
 
-interface InputProps {
-  toggleInput: (e: React.ChangeEvent<HTMLInputElement>) => void,
-  addNewTodo: (e:any) => void
-}
+function TodoInput() {
+  const dispatch = useDispatch();
+  const [newTodo, setNewTodo] = useState<string>("");
 
-function TodoInput({ toggleInput, addNewTodo }: InputProps) {
+  const addNewTodo = (event: any) => {
+    event.preventDefault();
+
+    const todo = {
+      name: newTodo,
+      completed: false
+    }
+
+    dispatch(addToList(todo))
+    event.target.reset();
+  }
+
+  const toggleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewTodo(e.target.value);
+  };
+
   return (
     <form onSubmit={(e) => addNewTodo(e)}>
       <input
-        className="input"
+        className="add-todo-input"
         type="text"
         name="todo"
         placeholder="Create a new todo..."

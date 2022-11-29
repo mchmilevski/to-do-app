@@ -11,7 +11,7 @@
     letter-spacing: 5px;
   }
 
-  .input {
+  .add-todo-input {
     background-color: hsl(235, 24%, 19%);
     border: none;
     height: 60px;
@@ -24,12 +24,12 @@
     font-family: "JosefinSans-Regular";
   }
 
-  ::placeholder {
+  .add-todo-input::placeholder {
     color: hsl(234, 11%, 52%);
     font-family: "JosefinSans-Regular";
   }
 
-  input:focus {
+  .add-todo-input:focus {
     outline: none;
   }
 }

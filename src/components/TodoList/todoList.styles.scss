@@ -11,6 +11,9 @@
     justify-content: space-between;
     .filters {
       cursor: pointer;
+      .filter {
+        color: hsl(220, 98%, 61%)
+      }
     }
   
     .active-text {

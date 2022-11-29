@@ -7,7 +7,7 @@ function App() {
     <div>
       <img style={{ width: "100%" }} src={HeaderImage} />
       <ToDo />
-    </div>
+     </div>
   );
 }
 

@@ -8,16 +8,19 @@ export enum Filters {
 }
 
 export type ToDoItem = {
+  id: number;
   name: string;
   completed: boolean;
 };
 
 export interface ToDoState {
+  idCount: number;
   todoList: ToDoItem[];
   selectedFilter: string;
 }
 
 const initialState: ToDoState = {
+  idCount: 0,
   todoList: [],
   selectedFilter: Filters.AllTodos,
 };
@@ -26,11 +29,14 @@ export const todoSlice = createSlice({
   name: "todo",
   initialState,
   reducers: {
+    incrementIdCount: (state) => {
+      state.idCount++
+    },
     addToList: (state, action) => {
       state.todoList.push(action.payload);
     },
     toggleTodo: (state, action) => {
-      const todo = state.todoList.find((todo) => todo.name === action.payload);
+      const todo = state.todoList.find((todo) => todo.id === action.payload);
       if (todo) {
         todo.completed = !todo.completed;
       }
@@ -44,7 +50,7 @@ export const todoSlice = createSlice({
     },
     editTodo: (state, action) => {
       const todo = state.todoList.find(
-        (todo) => todo.name === action.payload.name
+        (todo) => todo.id === action.payload.id
       );
       if (todo) {
         todo.name = action.payload.newName;
@@ -52,10 +58,10 @@ export const todoSlice = createSlice({
     },
     removeTodo: (state, action) => {
       const foundTodo = state.todoList.find(
-        (todo) => todo.name === action.payload
+        (todo) => todo.id === action.payload
       );
       if (foundTodo) {
-        const newTodos = state.todoList.filter(todo => todo.name !== foundTodo.name);
+        const newTodos = state.todoList.filter(todo => todo.id !== foundTodo.id);
         state.todoList = newTodos
       }
     },
@@ -63,6 +69,7 @@ export const todoSlice = createSlice({
 });
 
 export const {
+  incrementIdCount,
   addToList,
   toggleTodo,
   updateFilters,

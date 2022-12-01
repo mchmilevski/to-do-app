@@ -15,14 +15,14 @@ function TodoRow({ todo }: TodoItemInterface) {
   const dispatch = useDispatch();
 
   const setIsChecked = () => {
-    dispatch(toggleTodo(todo.name));
+    dispatch(toggleTodo(todo.id));
   };
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
 
     const editData = {
-      name: todo.name,
+      id: todo.id,
       newName: editedTodo,
     };
 
@@ -31,7 +31,7 @@ function TodoRow({ todo }: TodoItemInterface) {
   };
 
   const toggleRemoveTodo = () => {
-    dispatch(removeTodo(todo.name));
+    dispatch(removeTodo(todo.id));
     setChangeTextToInput(!changedTextToInput);
   };
 

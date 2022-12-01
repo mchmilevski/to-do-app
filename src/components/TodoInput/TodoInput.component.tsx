@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addToList } from "../../store/todoSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addToList, incrementIdCount } from "../../store/todoSlice";
+import { RootState } from "../../store/store";
 
 function TodoInput() {
   const dispatch = useDispatch();
+  const idCount = useSelector((state: RootState) => state.todo.idCount);
   const [newTodo, setNewTodo] = useState<string>("");
 
   const addNewTodo = (event: any) => {
     event.preventDefault();
+    dispatch(incrementIdCount())
 
     const todo = {
+      id: idCount,
       name: newTodo,
       completed: false
     }

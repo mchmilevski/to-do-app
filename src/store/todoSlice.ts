@@ -1,18 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
+export enum Filters {
+  AllTodos = "allTodos",
+  ActiveTodos = "activeTodos",
+  CompletedTodos = "completedTodos",
+}
+
+export type ToDoItem = {
+  name: string;
+  completed: boolean;
+};
+
 export interface ToDoState {
-  todoList: { name: string; completed: boolean }[];
-  filters: { all: boolean, active: boolean, completed: boolean}
+  todoList: ToDoItem[];
+  selectedFilter: string;
 }
 
 const initialState: ToDoState = {
   todoList: [],
-  filters: {
-    all: true,
-    active: false,
-    completed: false
-  }
+  selectedFilter: Filters.AllTodos,
 };
 
 export const todoSlice = createSlice({
@@ -22,17 +29,45 @@ export const todoSlice = createSlice({
     addToList: (state, action) => {
       state.todoList.push(action.payload);
     },
-    updateTodo: (state, action) => {
+    toggleTodo: (state, action) => {
       const todo = state.todoList.find((todo) => todo.name === action.payload);
       if (todo) {
-        todo.completed = !todo.completed
+        todo.completed = !todo.completed;
       }
     },
     updateFilters: (state, action) => {
-      state.filters = {...action.payload}
-    }
+      state.selectedFilter = action.payload;
+    },
+    clearCompleted: (state) => {
+      const newTodos = state.todoList.filter((todo) => !todo.completed);
+      state.todoList = newTodos;
+    },
+    editTodo: (state, action) => {
+      const todo = state.todoList.find(
+        (todo) => todo.name === action.payload.name
+      );
+      if (todo) {
+        todo.name = action.payload.newName;
+      }
+    },
+    removeTodo: (state, action) => {
+      const foundTodo = state.todoList.find(
+        (todo) => todo.name === action.payload
+      );
+      if (foundTodo) {
+        const newTodos = state.todoList.filter(todo => todo.name !== foundTodo.name);
+        state.todoList = newTodos
+      }
+    },
   },
 });
 
-export const { addToList, updateTodo, updateFilters } = todoSlice.actions;
+export const {
+  addToList,
+  toggleTodo,
+  updateFilters,
+  clearCompleted,
+  editTodo,
+  removeTodo,
+} = todoSlice.actions;
 export default todoSlice.reducer;

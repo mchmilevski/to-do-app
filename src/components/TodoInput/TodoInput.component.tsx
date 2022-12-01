@@ -18,8 +18,8 @@ function TodoInput() {
     event.target.reset();
   }
 
-  const toggleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewTodo(e.target.value);
+  const toggleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewTodo(event.target.value);
   };
 
   return (

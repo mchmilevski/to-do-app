@@ -1,9 +1,21 @@
 import { useState } from "react";
-import "./todoRow.styles.scss";
+import "./todoRow.styles.tsx";
 import { toggleTodo, editTodo, removeTodo } from "../../store/todoSlice";
 import { useDispatch } from "react-redux";
 import { ToDoItem } from "../../store/todoSlice";
 import { FaTimes } from "react-icons/fa";
+import {
+  ToDoContainer,
+  Checkbox,
+  InputAndRemoveContainer,
+  ToDoText,
+  EditInput,
+} from "./todoRow.styles";
+
+const removeIconStyle = {
+  cursor: "pointer",
+  color: "hsl(234, 11%, 52%)",
+};
 
 interface TodoItemInterface {
   todo: ToDoItem;
@@ -36,40 +48,36 @@ function TodoRow({ todo }: TodoItemInterface) {
   };
 
   return (
-    <div className="todo-container">
-      <input
+    <ToDoContainer>
+      <Checkbox
         type="checkbox"
-        className={`${todo.completed ? "checked" : ""}`}
+        checked={todo.completed}
         onChange={setIsChecked}
       />
       {changedTextToInput ? (
-        <div
-          className="input-and-remove"
+        <InputAndRemoveContainer
           onClick={() => setChangeTextToInput(!changedTextToInput)}
         >
           <form onSubmit={(e) => handleSubmit(e)}>
-            <input
+            <EditInput
               autoFocus={true}
-              className="edit-input"
               type="text"
               value={editedTodo}
               name="todo"
               onChange={(e) => setEditedTodo(e.target.value)}
             />
           </form>
-          <div onClick={toggleRemoveTodo}>
-            <FaTimes className="remove-icon" />
-          </div>
-        </div>
+          <FaTimes onClick={toggleRemoveTodo} style={removeIconStyle} />
+        </InputAndRemoveContainer>
       ) : (
-        <span
+        <ToDoText
           onClick={() => setChangeTextToInput(!changedTextToInput)}
-          className={`item-text ${todo.completed ? "text-line-through" : ""}`}
+          completed={todo.completed}
         >
           {todo.name}
-        </span>
+        </ToDoText>
       )}
-    </div>
+    </ToDoContainer>
   );
 }
 

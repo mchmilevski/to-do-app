@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
-import "./todoList.styles.scss";
+import "./todoList.styles.tsx";
 import TodoRow from "../TodoRow/TodoRow.component";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { updateFilters, clearCompleted } from "../../store/todoSlice";
 import { useDispatch } from "react-redux";
 import { Filters, ToDoItem } from "../../store/todoSlice";
+import {
+  ListContainer,
+  Footer,
+  FilterText,
+  ActiveButton,
+  ClearCompleted,
+} from "./todoList.styles";
 
 function TodoList() {
   const dispatch = useDispatch();
@@ -58,47 +65,42 @@ function TodoList() {
     setFilteredList([...completedList]);
   };
 
-  const attachFilterClass = (filter: Filters) =>
-    selectedFilter === filter ? "filter" : "";
-
   const toggleClearCompleted = () => {
     dispatch(clearCompleted());
   };
 
   return (
-    <div className="list-container">
+    <ListContainer>
       {filteredList.map((item: ToDoItem, index: number) => (
         <TodoRow todo={item} key={index} />
       ))}
-      <div className="footer">
-        <div className="count">
-          <span>{getItemsLeftCount()} items left</span>
-        </div>
-        <div className="filters">
-          <span
+      <Footer>
+        <span>{getItemsLeftCount()} items left</span>
+        <div>
+          <FilterText
             onClick={toggleAllFilter}
-            className={attachFilterClass(Filters.AllTodos)}
+            active={selectedFilter === Filters.AllTodos}
           >
             All
-          </span>
-          <span
+          </FilterText>
+          <ActiveButton
             onClick={toggleActiveFilter}
-            className={`active-text ${attachFilterClass(Filters.ActiveTodos)}`}
+            active={selectedFilter === Filters.ActiveTodos}
           >
             Active
-          </span>
-          <span
+          </ActiveButton>
+          <FilterText
             onClick={toggleCompletedFilter}
-            className={attachFilterClass(Filters.CompletedTodos)}
+            active={selectedFilter === Filters.CompletedTodos}
           >
             Completed
-          </span>
+          </FilterText>
         </div>
-        <div className="clear-completed">
-          <span onClick={toggleClearCompleted}>Clear Completed</span>
-        </div>
-      </div>
-    </div>
+        <ClearCompleted onClick={toggleClearCompleted}>
+          Clear Completed
+        </ClearCompleted>
+      </Footer>
+    </ListContainer>
   );
 }
 

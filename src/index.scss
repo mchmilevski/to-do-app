@@ -8,12 +8,16 @@
   src: url("./fonts/JosefinSans-Bold.ttf") format("truetype");
 }
 
+html {
+  min-height:100%;
+  position: relative;
+}
 body {
+  height: 100%;
   margin: 0;
   font-family: "JosefinSans-Regular", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: hsl(235, 21%, 11%);
 }
 
 code {

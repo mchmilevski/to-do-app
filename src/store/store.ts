@@ -11,7 +11,7 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist'
+} from "redux-persist";
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof rootReducer>;
@@ -24,7 +24,7 @@ const persistConfig: ExtendedPersistConfig = {
   key: "root",
   version: 1,
   storage,
-  witelist: ["todo"],
+  witelist: ["todo", "themeProvider"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -37,7 +37,7 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
-})
+});
 
 export type AppDispatch = typeof store.dispatch;
 

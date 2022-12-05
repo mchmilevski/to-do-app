@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToList, incrementIdCount } from "../../store/todoSlice";
 import { RootState } from "../../store/store";
+import {AddToDoInput} from '../Todo/todo.styles';
 
 function TodoInput() {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ function TodoInput() {
 
   return (
     <form onSubmit={(e) => addNewTodo(e)}>
-      <input
+      <AddToDoInput
         className="add-todo-input"
         type="text"
         name="todo"

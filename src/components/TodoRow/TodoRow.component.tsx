@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import "./todoRow.styles.tsx";
 import { toggleTodo, editTodo, removeTodo } from "../../store/todoSlice";
 import { useDispatch } from "react-redux";
@@ -30,7 +30,7 @@ function TodoRow({ todo }: TodoItemInterface) {
     dispatch(toggleTodo(todo.id));
   };
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const editData = {
@@ -58,8 +58,9 @@ function TodoRow({ todo }: TodoItemInterface) {
         <InputAndRemoveContainer
           onClick={() => setChangeTextToInput(!changedTextToInput)}
         >
-          <form onSubmit={(e) => handleSubmit(e)}>
+          <form onSubmit={handleSubmit}>
             <EditInput
+              completed={todo.completed}
               autoFocus={true}
               type="text"
               value={editedTodo}

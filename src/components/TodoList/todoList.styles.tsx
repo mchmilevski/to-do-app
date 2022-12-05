@@ -3,6 +3,7 @@ import {
   brightblue,
   textColor,
   todoBackgroundColor,
+  hoverFooterText,
 } from "../../styles/themeStyles";
 
 export const ListContainer = styled.div`
@@ -20,6 +21,8 @@ export const Footer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  font-family: "JosefinSans-Bold";
+  font-size: 14px;
   color: ${textColor};
 `;
 
@@ -30,6 +33,9 @@ type FilterTextProps = {
 export const FilterText = styled.span<FilterTextProps>`
   cursor: pointer;
   color: ${({ active }) => active && brightblue};
+  &:hover {
+    color: ${({active}) => active ? brightblue : hoverFooterText}
+  }
 `;
 
 export const ActiveButton = styled(FilterText)`
@@ -38,4 +44,7 @@ export const ActiveButton = styled(FilterText)`
 
 export const ClearCompleted = styled.div`
   cursor: pointer;
+  &:hover {
+    color: ${hoverFooterText};
+  }
 `;

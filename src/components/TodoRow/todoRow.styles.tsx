@@ -4,7 +4,9 @@ import {
   checkboxBorderColor,
   textColor,
   checkboxBackgroundColor,
-  todoBackgroundColor
+  todoBackgroundColor,
+  completedToDoTextColor,
+  activeToDoTextColor
 } from "../../styles/themeStyles";
 
 export const ToDoContainer = styled.div`
@@ -56,19 +58,23 @@ type ToDoTextProps = {
 };
 
 export const ToDoText = styled.span<ToDoTextProps>`
-  color: ${textColor};
+  color: ${({ completed }) => (completed ? completedToDoTextColor : activeToDoTextColor)};
   padding-left: 10px;
   font-size: 18px;
   text-decoration: ${({ completed }) => completed && "line-through"};
 `;
 
-export const EditInput = styled.input`
+type EditInputProps = {
+  completed: boolean
+}
+
+export const EditInput = styled.input<EditInputProps>`
   -webkit-appearance: none;
   appearance: none;
   background-color: ${todoBackgroundColor};
   width: 100%;
   border: none;
-  color: ${textColor};
+  color: ${({ completed }) => (completed ? completedToDoTextColor : activeToDoTextColor)};
   font-size: 18px;
   font-family: "JosefinSans-Regular";
   outline: none;

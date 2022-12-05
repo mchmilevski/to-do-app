@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { textColor, todoBackgroundColor } from "../../styles/themeStyles";
+import {
+  textColor,
+  todoBackgroundColor,
+  activeToDoTextColor,
+} from "../../styles/themeStyles";
 
 export const Container = styled.div`
   position: absolute;
@@ -28,12 +32,12 @@ export const AddToDoInput = styled.input`
   width: 700px;
   border-radius: 5px;
   font-size: 18px;
-  color: ${textColor};
+  color: ${activeToDoTextColor};
   margin-top: 30px;
   padding-left: 15px;
   font-family: "JosefinSans-Regular";
   ::placeholder {
-    color:${textColor};
+    color: ${textColor};
     font-family: "JosefinSans-Regular";
   }
   :focus {

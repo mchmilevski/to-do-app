@@ -1,40 +1,41 @@
-import React, { useState } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToList, incrementIdCount } from "../../store/todoSlice";
 import { RootState } from "../../store/store";
-import {AddToDoInput} from '../Todo/todo.styles';
+import { AddToDoInput } from "../Todo/todo.styles";
 
 function TodoInput() {
   const dispatch = useDispatch();
   const idCount = useSelector((state: RootState) => state.todo.idCount);
   const [newTodo, setNewTodo] = useState<string>("");
 
-  const addNewTodo = (event: any) => {
+  const addNewTodo = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(incrementIdCount())
+    dispatch(incrementIdCount());
 
     const todo = {
       id: idCount,
       name: newTodo,
-      completed: false
-    }
+      completed: false,
+    };
 
-    dispatch(addToList(todo))
-    event.target.reset();
-  }
+    dispatch(addToList(todo));
+    setNewTodo("")
+  };
 
-  const toggleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const toggleInput = (event: ChangeEvent<HTMLInputElement>) => {
     setNewTodo(event.target.value);
   };
 
   return (
-    <form onSubmit={(e) => addNewTodo(e)}>
+    <form onSubmit={addNewTodo}>
       <AddToDoInput
         className="add-todo-input"
         type="text"
+        value={newTodo}
         name="todo"
         placeholder="Create a new todo..."
-        onChange={(e) => toggleInput(e)}
+        onChange={toggleInput}
       />
     </form>
   );

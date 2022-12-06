@@ -6,7 +6,8 @@ import {
   checkboxBackgroundColor,
   todoBackgroundColor,
   completedToDoTextColor,
-  activeToDoTextColor
+  activeToDoTextColor,
+  backgroundColor
 } from "../../styles/themeStyles";
 
 export const ToDoContainer = styled.div`
@@ -15,6 +16,9 @@ export const ToDoContainer = styled.div`
   border-bottom: 0.5px solid ${borderColor};
   padding: 20px 20px;
   width: 100%;
+  background-color: ${todoBackgroundColor};
+  border-radius: 5px;
+
 `;
 
 type CheckboxProps = {

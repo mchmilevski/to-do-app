@@ -4,7 +4,7 @@ import { addToList, incrementIdCount } from "../../store/todoSlice";
 import { RootState } from "../../store/store";
 import { AddToDoInput } from "../Todo/todo.styles";
 
-function TodoInput() {
+const TodoInput = () => {
   const dispatch = useDispatch();
   const idCount = useSelector((state: RootState) => state.todo.idCount);
   const [newTodo, setNewTodo] = useState<string>("");
@@ -28,7 +28,7 @@ function TodoInput() {
   };
 
   return (
-    <form onSubmit={addNewTodo}>
+    <form autoComplete="off" onSubmit={addNewTodo}>
       <AddToDoInput
         className="add-todo-input"
         type="text"

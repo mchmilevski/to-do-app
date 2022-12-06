@@ -6,10 +6,9 @@ import {
 } from "../../styles/themeStyles";
 
 export const Container = styled.div`
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0);
-  top: 90px;
+  padding-top: 90px;
+  margin: 0px auto 0;
+  width: 63%;
 `;
 
 export const Header = styled.div`
@@ -29,7 +28,7 @@ export const AddToDoInput = styled.input`
   background-color: ${todoBackgroundColor};
   border: none;
   height: 60px;
-  width: 700px;
+  width: 100%;
   border-radius: 5px;
   font-size: 18px;
   color: ${activeToDoTextColor};
@@ -43,4 +42,14 @@ export const AddToDoInput = styled.input`
   :focus {
     outline: none;
   }
+  box-shadow: -4px 4px 36px 2px rgba(0, 0, 0, 0.16);
+  -webkit-box-shadow: -4px 4px 36px 2px rgba(0, 0, 0, 0.16);
+  -moz-box-shadow: -4px 4px 36px 2px rgba(0, 0, 0, 0.16);
+`;
+
+export const DragAndDropInfoText = styled.div`
+  color: ${textColor};
+  text-align: center;
+  width: 100%;
+  margin-top: 50px;
 `;

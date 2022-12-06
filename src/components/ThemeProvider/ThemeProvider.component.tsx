@@ -2,7 +2,11 @@ import { useSelector } from "react-redux";
 import { ThemeProvider as StyledTheme } from "styled-components";
 import { selectTheme, Theme } from "../../store/themeProviderSlice";
 
-const ThemeProvider = ({ children }: { children: JSX.Element }) => {
+interface ThemeProviderProps {
+  children: JSX.Element;
+}
+
+const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const darkThemeEnabled = useSelector(selectTheme);
 
   return (

@@ -1,20 +1,25 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./todoList.styles.tsx";
 import TodoRow from "../TodoRow/TodoRow.component";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { updateFilters, clearCompleted } from "../../store/todoSlice";
-import { useDispatch } from "react-redux";
-import { Filters, ToDoItem } from "../../store/todoSlice";
 import {
-  ListContainer,
-  Footer,
-  FilterText,
-  ActiveButton,
-  ClearCompleted,
-} from "./todoList.styles";
+  updateFilters,
+  reorderTodoList,
+  Filters,
+  ToDoItem,
+} from "../../store/todoSlice";
+import { useDispatch } from "react-redux";
+import { ListContainer } from "./todoList.styles";
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DropResult,
+} from "react-beautiful-dnd";
+import Footer from "../Footer/Footer.component";
 
-function TodoList() {
+const TodoList = () => {
   const dispatch = useDispatch();
   const [filteredList, setFilteredList] = useState<ToDoItem[]>([]);
 
@@ -22,6 +27,10 @@ function TodoList() {
   const selectedFilter = useSelector(
     (state: RootState) => state.todo.selectedFilter
   );
+
+  useEffect(() => {
+    setFilteredList([...todoList]);
+  }, [todoList]);
 
   useEffect(() => {
     if (selectedFilter) {
@@ -34,19 +43,6 @@ function TodoList() {
       }
     }
   }, []);
-
-  useEffect(() => {
-    setFilteredList([...todoList]);
-  }, [todoList]);
-
-  const getItemsLeftCount = () =>
-    todoList.reduce((sum, current) => {
-      if (!current.completed) {
-        sum += 1;
-      }
-
-      return sum;
-    }, 0);
 
   const toggleAllFilter = () => {
     dispatch(updateFilters(Filters.AllTodos));
@@ -65,43 +61,74 @@ function TodoList() {
     setFilteredList([...completedList]);
   };
 
-  const toggleClearCompleted = () => {
-    dispatch(clearCompleted());
+  const reorder = (
+    list: ToDoItem[],
+    startIndex: number,
+    endIndex: number
+  ): ToDoItem[] => {
+    const [removed] = list.splice(startIndex, 1);
+    list.splice(endIndex, 0, removed);
+
+    return list;
   };
+
+  const onDragEnd = (result: DropResult) => {
+    if (!result.destination) {
+      return;
+    }
+
+    if (result.destination.index === result.source.index) {
+      return;
+    }
+
+    const reorderedList: ToDoItem[] = reorder(
+      filteredList,
+      result.source.index,
+      result.destination.index
+    );
+
+    dispatch(reorderTodoList(reorderedList));
+  };
+
+  const List = React.memo(() => {
+    return (
+      <React.Fragment>
+        {filteredList.map((item: ToDoItem, index: number) => (
+          <Draggable draggableId={String(item.id)} index={index} key={item.id}>
+            {(provided) => (
+              <TodoRow
+                provided={provided}
+                innerRef={provided.innerRef}
+                todo={item}
+                key={index}
+              />
+            )}
+          </Draggable>
+        ))}
+      </React.Fragment>
+    );
+  });
 
   return (
     <ListContainer>
-      {filteredList.map((item: ToDoItem, index: number) => (
-        <TodoRow todo={item} key={index} />
-      ))}
-      <Footer>
-        <span>{getItemsLeftCount()} items left</span>
-        <div>
-          <FilterText
-            onClick={toggleAllFilter}
-            active={selectedFilter === Filters.AllTodos}
-          >
-            All
-          </FilterText>
-          <ActiveButton
-            onClick={toggleActiveFilter}
-            active={selectedFilter === Filters.ActiveTodos}
-          >
-            Active
-          </ActiveButton>
-          <FilterText
-            onClick={toggleCompletedFilter}
-            active={selectedFilter === Filters.CompletedTodos}
-          >
-            Completed
-          </FilterText>
-        </div>
-        <ClearCompleted onClick={toggleClearCompleted}>
-          Clear Completed
-        </ClearCompleted>
-      </Footer>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="list">
+          {(provided) => (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              <List />
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+
+      <Footer
+        toggleCompletedFilter={toggleCompletedFilter}
+        toggleActiveFilter={toggleActiveFilter}
+        toggleAllFilter={toggleAllFilter}
+      />
     </ListContainer>
   );
-}
+};
 
 export default TodoList;

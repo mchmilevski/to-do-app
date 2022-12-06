@@ -9,11 +9,9 @@
 }
 
 html {
-  min-height:100%;
-  position: relative;
+  height: 100vh;
 }
 body {
-  height: 100%;
   margin: 0;
   font-family: "JosefinSans-Regular", sans-serif;
   -webkit-font-smoothing: antialiased;

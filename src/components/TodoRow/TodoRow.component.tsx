@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useRef } from "react";
 import "./todoRow.styles.tsx";
 import { toggleTodo, editTodo, removeTodo } from "../../store/todoSlice";
 import { useDispatch } from "react-redux";
@@ -11,6 +11,7 @@ import {
   ToDoText,
   EditInput,
 } from "./todoRow.styles";
+import { DraggableProvided } from "react-beautiful-dnd";
 
 const removeIconStyle = {
   cursor: "pointer",
@@ -19,9 +20,11 @@ const removeIconStyle = {
 
 interface TodoItemInterface {
   todo: ToDoItem;
+  innerRef: any;
+  provided: DraggableProvided;
 }
 
-function TodoRow({ todo }: TodoItemInterface) {
+const TodoRow: React.FC<TodoItemInterface> = ({ todo, provided, innerRef }) => {
   const [changedTextToInput, setChangeTextToInput] = useState<boolean>(false);
   const [editedTodo, setEditedTodo] = useState<string>(todo.name || "");
   const dispatch = useDispatch();
@@ -48,7 +51,11 @@ function TodoRow({ todo }: TodoItemInterface) {
   };
 
   return (
-    <ToDoContainer>
+    <ToDoContainer
+      ref={innerRef}
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
+    >
       <Checkbox
         type="checkbox"
         checked={todo.completed}
@@ -80,6 +87,6 @@ function TodoRow({ todo }: TodoItemInterface) {
       )}
     </ToDoContainer>
   );
-}
+};
 
 export default TodoRow;

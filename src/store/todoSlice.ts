@@ -30,44 +30,47 @@ export const todoSlice = createSlice({
   initialState,
   reducers: {
     incrementIdCount: (state) => {
-      state.idCount++
+      state.idCount++;
     },
-    addToList: (state, action) => {
+    addToList: (state, action: PayloadAction<ToDoItem>) => {
       state.todoList.push(action.payload);
     },
-    toggleTodo: (state, action) => {
+    toggleTodo: (state, action: PayloadAction<number>) => {
       const todo = state.todoList.find((todo) => todo.id === action.payload);
       if (todo) {
         todo.completed = !todo.completed;
       }
     },
-    updateFilters: (state, action) => {
+    updateFilters: (state, action: PayloadAction<Filters>) => {
       state.selectedFilter = action.payload;
     },
     clearCompleted: (state) => {
       const newTodos = state.todoList.filter((todo) => !todo.completed);
       state.todoList = newTodos;
     },
-    editTodo: (state, action) => {
-      const todo = state.todoList.find(
-        (todo) => todo.id === action.payload.id
-      );
+    editTodo: (
+      state,
+      action: PayloadAction<{ id: number; newName: string }>
+    ) => {
+      const todo = state.todoList.find((todo) => todo.id === action.payload.id);
       if (todo) {
         todo.name = action.payload.newName;
       }
     },
-    removeTodo: (state, action) => {
+    removeTodo: (state, action: PayloadAction<number>) => {
       const foundTodo = state.todoList.find(
         (todo) => todo.id === action.payload
       );
       if (foundTodo) {
-        const newTodos = state.todoList.filter(todo => todo.id !== foundTodo.id);
-        state.todoList = newTodos
+        const newTodos = state.todoList.filter(
+          (todo) => todo.id !== foundTodo.id
+        );
+        state.todoList = newTodos;
       }
     },
-    reorderTodoList: (state, action) => {
-      state.todoList = action.payload
-    }
+    reorderTodoList: (state, action: PayloadAction<ToDoItem[]>) => {
+      state.todoList = action.payload;
+    },
   },
 });
 

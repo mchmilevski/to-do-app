@@ -10,6 +10,7 @@ import {
   InputAndRemoveContainer,
   ToDoText,
   EditInput,
+  TodoForm
 } from "./todoRow.styles";
 import { DraggableProvided } from "react-beautiful-dnd";
 
@@ -65,7 +66,7 @@ const TodoRow: React.FC<TodoItemInterface> = ({ todo, provided, innerRef }) => {
         <InputAndRemoveContainer
           onClick={() => setChangeTextToInput(!changedTextToInput)}
         >
-          <form onSubmit={handleSubmit}>
+          <TodoForm onSubmit={handleSubmit}>
             <EditInput
               completed={todo.completed}
               autoFocus={true}
@@ -74,7 +75,7 @@ const TodoRow: React.FC<TodoItemInterface> = ({ todo, provided, innerRef }) => {
               name="todo"
               onChange={(e) => setEditedTodo(e.target.value)}
             />
-          </form>
+          </TodoForm>
           <FaTimes onClick={toggleRemoveTodo} style={removeIconStyle} />
         </InputAndRemoveContainer>
       ) : (

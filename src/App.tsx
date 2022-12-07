@@ -1,22 +1,56 @@
-import ToDo from "./components/Todo/ToDo.component";
 import DarkHeaderImage from "./assets/bg-desktop-dark.jpg";
 import LightHEaderImage from "./assets/bg-desktop-light.jpg";
-import { useSelector } from "react-redux";
-import { selectTheme } from "./store/themeProviderSlice";
-import { AppContainer, BackgroundImage } from "./styles/App.styles";
+import { useSelector, useDispatch } from "react-redux";
+import { selectTheme, toggleDarkTheme } from "./store/themeProviderSlice";
+import {
+  AppContainer,
+  BackgroundImage,
+  Container,
+  Header,
+  Title,
+  DragAndDropInfoText,
+} from "./styles/App.styles";
+import { FaSun, FaMoon } from "react-icons/fa";
+import TodoInput from "./components/TodoInput/TodoInput.component";
+import TodoList from "./components/TodoList/TodoList.component";
+
+const themeToggleIcon = {
+  color: "white",
+  fontSize: "25px",
+  cursor: "pointer",
+};
 
 const App = () => {
+  const dispatch = useDispatch();
   const darkThemeEnabled = useSelector(selectTheme);
+
+  const setTheme = () => {
+    dispatch(toggleDarkTheme());
+  };
 
   return (
     <AppContainer>
       <BackgroundImage
         imageUrl={darkThemeEnabled ? DarkHeaderImage : LightHEaderImage}
       >
-        <ToDo />
+        <Container>
+          <Header>
+            <Title>TODO</Title>
+            {darkThemeEnabled ? (
+              <FaSun onClick={setTheme} style={themeToggleIcon} />
+            ) : (
+              <FaMoon onClick={setTheme} style={themeToggleIcon} />
+            )}
+          </Header>
+          <TodoInput />
+          <TodoList />
+          <DragAndDropInfoText>
+            Drag and drop to reorder list
+          </DragAndDropInfoText>
+        </Container>
       </BackgroundImage>
     </AppContainer>
   );
-}
+};
 
 export default App;

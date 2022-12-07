@@ -13,7 +13,6 @@ import {
   REGISTER,
 } from "redux-persist";
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof rootReducer>;
 
 type ExtendedPersistConfig = PersistConfig<RootState> & {

@@ -29,20 +29,17 @@ const TodoList = () => {
   );
 
   useEffect(() => {
-    setFilteredList([...todoList]);
-  }, [todoList]);
-
-  useEffect(() => {
-    if (selectedFilter) {
-      if (Filters.AllTodos) {
-        toggleAllFilter();
-      } else if (Filters.ActiveTodos) {
+    switch (selectedFilter) {
+      case Filters.ActiveTodos:
         toggleActiveFilter();
-      } else {
+        break;
+      case Filters.CompletedTodos:
         toggleCompletedFilter();
-      }
+        break;
+      default:
+        toggleAllFilter();
     }
-  }, []);
+  }, [todoList]);
 
   const toggleAllFilter = () => {
     dispatch(updateFilters(Filters.AllTodos));

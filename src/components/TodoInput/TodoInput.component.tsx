@@ -2,7 +2,7 @@ import { useState, FormEvent, ChangeEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToList, incrementIdCount } from "../../store/todoSlice";
 import { RootState } from "../../store/store";
-import { AddToDoInput } from "../Todo/todo.styles";
+import { AddToDoInput } from "../../styles/App.styles";
 
 const TodoInput = () => {
   const dispatch = useDispatch();

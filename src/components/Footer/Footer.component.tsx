@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import {
   FooterContainer,
   FilterText,
@@ -19,7 +20,7 @@ const Footer: React.FC<FooterProps> = ({
   toggleCompletedFilter,
 }) => {
   const dispatch = useDispatch();
-  const todoList = useSelector((state: RootState) => state.todo.todoList);
+  const activeTodos = useSelector((state: RootState) => state.todo.activeTodos);
   const selectedFilter = useSelector(
     (state: RootState) => state.todo.selectedFilter
   );
@@ -29,7 +30,7 @@ const Footer: React.FC<FooterProps> = ({
   };
 
   const getItemsLeftCount = () =>
-    todoList.reduce((sum, current) => {
+    activeTodos.reduce((sum, current) => {
       if (!current.completed) {
         sum += 1;
       }
@@ -39,7 +40,7 @@ const Footer: React.FC<FooterProps> = ({
 
   return (
     <FooterContainer>
-      <span>{getItemsLeftCount()} items left</span>
+      <span>{getItemsLeftCount()} item{getItemsLeftCount() > 1 && 's'} left</span>
       <div>
         <FilterText
           onClick={toggleAllFilter}

@@ -38,7 +38,7 @@ const TodoRow: React.FC<TodoItemInterface> = ({ todo, provided, innerRef }) => {
     event.preventDefault();
 
     const editData = {
-      id: todo.id,
+      ...todo,
       newName: editedTodo,
     };
 
@@ -47,7 +47,7 @@ const TodoRow: React.FC<TodoItemInterface> = ({ todo, provided, innerRef }) => {
   };
 
   const toggleRemoveTodo = () => {
-    dispatch(removeTodo(todo.id));
+    dispatch(removeTodo(todo));
     setChangeTextToInput(!changedTextToInput);
   };
 

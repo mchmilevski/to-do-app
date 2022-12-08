@@ -1,29 +1,15 @@
-import { useMemo } from "react";
-import {
-  FooterContainer,
-  FilterText,
-  ActiveButton,
-  ClearCompleted,
-} from "./footer.styles";
+import { useMediaQuery } from "react-responsive";
+import { FooterContainer, ClearCompleted } from "./footer.styles";
 import { useDispatch, useSelector } from "react-redux";
-import { clearCompleted, Filters } from "../../store/todoSlice";
+import { clearCompleted } from "../../store/todoSlice";
 import { RootState } from "../../store/store";
+import React from "react";
+import Filters from "../Filters/Filters.component";
 
-interface FooterProps {
-  toggleAllFilter: () => void;
-  toggleActiveFilter: () => void;
-  toggleCompletedFilter: () => void;
-}
-const Footer: React.FC<FooterProps> = ({
-  toggleAllFilter,
-  toggleActiveFilter,
-  toggleCompletedFilter,
-}) => {
+const Footer = () => {
+  const isMobile = useMediaQuery({ query: `(max-width: 650px)` });
   const dispatch = useDispatch();
   const activeTodos = useSelector((state: RootState) => state.todo.activeTodos);
-  const selectedFilter = useSelector(
-    (state: RootState) => state.todo.selectedFilter
-  );
 
   const toggleClearCompleted = () => {
     dispatch(clearCompleted());
@@ -39,32 +25,17 @@ const Footer: React.FC<FooterProps> = ({
     }, 0);
 
   return (
-    <FooterContainer>
-      <span>{getItemsLeftCount()} item{getItemsLeftCount() > 1 && 's'} left</span>
-      <div>
-        <FilterText
-          onClick={toggleAllFilter}
-          active={selectedFilter === Filters.AllTodos}
-        >
-          All
-        </FilterText>
-        <ActiveButton
-          onClick={toggleActiveFilter}
-          active={selectedFilter === Filters.ActiveTodos}
-        >
-          Active
-        </ActiveButton>
-        <FilterText
-          onClick={toggleCompletedFilter}
-          active={selectedFilter === Filters.CompletedTodos}
-        >
-          Completed
-        </FilterText>
-      </div>
-      <ClearCompleted onClick={toggleClearCompleted}>
-        Clear Completed
-      </ClearCompleted>
-    </FooterContainer>
+    <React.Fragment>
+      <FooterContainer>
+        <span>
+          {getItemsLeftCount()} item{getItemsLeftCount() > 1 && "s"} left
+        </span>
+        {!isMobile && <Filters />}
+        <ClearCompleted onClick={toggleClearCompleted}>
+          Clear Completed
+        </ClearCompleted>
+      </FooterContainer>
+    </React.Fragment>
   );
 };
 

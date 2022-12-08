@@ -24,12 +24,6 @@ The designs were created to the following widths:
 - Dark Grayish Blue: hsl(236, 9%, 61%)
 - Very Dark Grayish Blue: hsl(235, 19%, 35%)
 
-// hover white : hsl(236, 33%, 92%) --- lightGray
-// text color white (for active todos) and typing: hsl(234, 39%, 85%) -- veryLightGray
-// text color old todos: hsl(233, 14%, 35%) - veryDarkGrayishBlue
-// placeholder and footer: hsl(234, 11%, 52%) (base text color)
-// border color: hsl(237, 14%, 26%)
-
 ### Dark Theme
 
 - Very Dark Blue: hsl(235, 21%, 11%)
@@ -39,12 +33,6 @@ The designs were created to the following widths:
 - Dark Grayish Blue: hsl(234, 11%, 52%)
 - Very Dark Grayish Blue: hsl(233, 14%, 35%)
 - Very Dark Grayish Blue: hsl(237, 14%, 26%)
-
-// hover blue: hsl(235, 19%, 35%)
-// text color active todos and curently typing: hsl(235, 19%, 35%)
-//text color old todos: hsl(233, 11%, 84%)
-// placeholder and footer: hsl(236, 9%, 61%) (base text color)
-//border color: hsl(233, 11%, 84%)
 
 
 ## Typography

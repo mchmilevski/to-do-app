@@ -25,6 +25,9 @@ export const Container = styled.div`
   padding-top: 90px;
   margin: 0px auto 0;
   width: 63%;
+  @media screen and (max-width: 650px) {
+    width: 90%;
+  }
 `;
 
 export const Header = styled.div`
@@ -37,7 +40,10 @@ export const Title = styled.span`
   color: white;
   font-size: 50px;
   font-family: "JosefinSans-Bold";
-  letter-spacing: 5px;
+  letter-spacing: 10px;
+  @media screen and (max-width: 650px) {
+    font-size: 35px;
+  }
 `;
 
 export const AddToDoInput = styled.input`
@@ -61,11 +67,14 @@ export const AddToDoInput = styled.input`
   box-shadow: -4px 4px 36px 2px rgba(0, 0, 0, 0.16);
   -webkit-box-shadow: -4px 4px 36px 2px rgba(0, 0, 0, 0.16);
   -moz-box-shadow: -4px 4px 36px 2px rgba(0, 0, 0, 0.16);
-`;
+  @media screen and (max-width: 650px) {
+    font-size: 16px;
+  }
+  `;
 
 export const DragAndDropInfoText = styled.div`
   color: ${textColor};
   text-align: center;
   width: 100%;
-  margin-top: 50px;
+  margin-top: 40px;
 `;

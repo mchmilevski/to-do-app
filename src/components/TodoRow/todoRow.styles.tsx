@@ -66,7 +66,10 @@ export const ToDoText = styled.span<ToDoTextProps>`
   width: 90%;
   word-wrap: break-word;
   text-decoration: ${({ completed }) => completed && "line-through"};
-`;
+  @media screen and (max-width: 650px) {
+    font-size: 16px;
+  }
+  `;
 
 type EditInputProps = {
   completed: boolean;
@@ -89,4 +92,7 @@ export const EditInput = styled.input<EditInputProps>`
   font-family: "JosefinSans-Regular";
   outline: none;
   padding-left: 10px;
+  @media screen and (max-width: 650px) {
+    font-size: 16px;
+  }
 `;

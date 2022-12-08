@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import "./todoList.styles.tsx";
 import { RootState } from "../../store/store";
-import { updateFilters, Filters, ListType } from "../../store/todoSlice";
+import { FilterType, ListType } from "../../store/todoSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ListContainer } from "./todoList.styles";
 import Footer from "../Footer/Footer.component";
@@ -18,21 +18,9 @@ const TodoList = () => {
     (state: RootState) => state.todo.selectedFilter
   );
 
-  const toggleAllFilter = () => {
-    dispatch(updateFilters(Filters.AllTodos));
-  };
-
-  const toggleActiveFilter = () => {
-    dispatch(updateFilters(Filters.ActiveTodos));
-  };
-
-  const toggleCompletedFilter = () => {
-    dispatch(updateFilters(Filters.CompletedTodos));
-  };
-
   return (
     <ListContainer>
-      {selectedFilter === Filters.AllTodos && (
+      {selectedFilter === FilterType.AllTodos && (
         <Fragment>
           <DragDropList
             todosList={activeTodos}
@@ -44,20 +32,16 @@ const TodoList = () => {
           />
         </Fragment>
       )}
-      {selectedFilter === Filters.ActiveTodos && (
+      {selectedFilter === FilterType.ActiveTodos && (
         <DragDropList todosList={activeTodos} listName={ListType.ActiveTodos} />
       )}
-      {selectedFilter === Filters.CompletedTodos && (
+      {selectedFilter === FilterType.CompletedTodos && (
         <DragDropList
           todosList={completedTodos}
           listName={ListType.CompletedTodos}
         />
       )}
-      <Footer
-        toggleCompletedFilter={toggleCompletedFilter}
-        toggleActiveFilter={toggleActiveFilter}
-        toggleAllFilter={toggleAllFilter}
-      />
+      <Footer />
     </ListContainer>
   );
 };

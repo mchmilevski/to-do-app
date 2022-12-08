@@ -10,7 +10,7 @@ import {
   InputAndRemoveContainer,
   ToDoText,
   EditInput,
-  TodoForm
+  TodoForm,
 } from "./todoRow.styles";
 import { DraggableProvided } from "react-beautiful-dnd";
 
@@ -31,7 +31,7 @@ const TodoRow: React.FC<TodoItemInterface> = ({ todo, provided, innerRef }) => {
   const dispatch = useDispatch();
 
   const setIsChecked = () => {
-    dispatch(toggleTodo(todo.id));
+    dispatch(toggleTodo(todo));
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {

@@ -20,7 +20,7 @@ const TodoInput = () => {
     };
 
     dispatch(addToList(todo));
-    setNewTodo("")
+    setNewTodo("");
   };
 
   const toggleInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +39,6 @@ const TodoInput = () => {
       />
     </form>
   );
-}
+};
 
 export default TodoInput;

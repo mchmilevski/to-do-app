@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-export enum Filters {
+export enum FilterType {
   AllTodos = "allTodos",
   ActiveTodos = "activeTodos",
   CompletedTodos = "completedTodos",
@@ -29,7 +29,7 @@ const initialState: ToDoState = {
   activeTodos: [],
   completedTodos: [],
   idCount: 0,
-  selectedFilter: Filters.AllTodos,
+  selectedFilter: FilterType.AllTodos,
 };
 
 const findTodo = (list: ToDoItem[], id: number) => {
@@ -38,6 +38,11 @@ const findTodo = (list: ToDoItem[], id: number) => {
 
 const filterTodos = (list: ToDoItem[], id: number) => {
   return list.filter((todo) => todo.id !== id);
+};
+
+const updateTodos = (state: ToDoState, listName: ListType, id: number) => {
+  const newList = filterTodos(state[listName], id);
+  state[listName] = newList;
 };
 
 export const todoSlice = createSlice({
@@ -50,18 +55,22 @@ export const todoSlice = createSlice({
     addToList: (state, action: PayloadAction<ToDoItem>) => {
       state.activeTodos.push(action.payload);
     },
-    toggleTodo: (state, action: PayloadAction<number>) => {
-      const foundTodo = findTodo(state.activeTodos, action.payload);
-      if (foundTodo) {
-        // Remove completed todo from active todos list
-        const newList = filterTodos(state.activeTodos, foundTodo.id);
-        state.activeTodos = newList;
-
-        // Add completed todo in the completed todos list
-        state.completedTodos.push({ ...foundTodo, completed: true });
+    toggleTodo: (state, action: PayloadAction<ToDoItem>) => {
+      if (action.payload.completed) {
+        const foundTodo = findTodo(state.completedTodos, action.payload.id);
+        if (foundTodo) {
+          updateTodos(state, ListType.CompletedTodos, foundTodo.id);
+          state.activeTodos.push({ ...foundTodo, completed: false });
+        }
+      } else {
+        const foundTodo = findTodo(state.activeTodos, action.payload.id);
+        if (foundTodo) {
+          updateTodos(state, ListType.ActiveTodos, foundTodo.id);
+          state.completedTodos.push({ ...foundTodo, completed: true });
+        }
       }
     },
-    updateFilters: (state, action: PayloadAction<Filters>) => {
+    updateFilters: (state, action: PayloadAction<FilterType>) => {
       state.selectedFilter = action.payload;
     },
     clearCompleted: (state) => {
@@ -82,7 +91,7 @@ export const todoSlice = createSlice({
       } else {
         todo = findTodo(state.activeTodos, action.payload.id);
       }
-      
+
       if (todo) {
         todo.name = action.payload.newName;
       }
@@ -91,14 +100,12 @@ export const todoSlice = createSlice({
       if (action.payload.completed) {
         const foundTodo = findTodo(state.completedTodos, action.payload.id);
         if (foundTodo) {
-          const newTodos = filterTodos(state.completedTodos, foundTodo.id);
-          state.completedTodos = newTodos;
+          updateTodos(state, ListType.CompletedTodos, foundTodo.id);
         }
       } else {
         const foundTodo = findTodo(state.activeTodos, action.payload.id);
         if (foundTodo) {
-          const newTodos = filterTodos(state.activeTodos, foundTodo.id);
-          state.activeTodos = newTodos;
+          updateTodos(state, ListType.ActiveTodos, foundTodo.id);
         }
       }
     },

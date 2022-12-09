@@ -2,14 +2,12 @@ import { Fragment } from "react";
 import "./todoList.styles.tsx";
 import { RootState } from "../../store/store";
 import { FilterType, ListType } from "../../store/todoSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { ListContainer } from "./todoList.styles";
 import Footer from "../Footer/Footer.component";
 import DragDropList from "../DragDropList/DragDropList.component";
 
 const TodoList = () => {
-  const dispatch = useDispatch();
-
   const activeTodos = useSelector((state: RootState) => state.todo.activeTodos);
   const completedTodos = useSelector(
     (state: RootState) => state.todo.completedTodos

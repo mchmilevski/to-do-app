@@ -1,4 +1,4 @@
-import { useState, FormEvent, useRef } from "react";
+import { useState, FormEvent } from "react";
 import "./todoRow.styles.tsx";
 import { toggleTodo, editTodo, removeTodo } from "../../store/todoSlice";
 import { useDispatch } from "react-redux";

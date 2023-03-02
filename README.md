@@ -32,8 +32,6 @@ You can play with the application [here](https://elaborate-medovik-0f7169.netlif
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
-
 ```bash
 # install the dependencies
 yarn install
